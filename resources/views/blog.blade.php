@@ -25,7 +25,9 @@
     </header>
     <main>
       <section id="blog">
-
+      <h1>See the latest from FULL TILT!</h1>
+      <article>
+        <?= $posts; ?>
       </section>
     </main>
     <footer>
