@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// -> is basically just a dot in python, php is the worst as per usual
-// :: is static method access, Route is a class and get is a static public method of Route. Extremely homosexual syntax
-
 Route::get('/', function () {
     return view('index');
 });
-
-
-/*
-Route::get('contact' function () {
-    return view('contact');
-});
-*/
