@@ -17,26 +17,34 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('contact' function () {
+Route::get('contact', function () {
     return view('contact');
 });
 
-Route::get('blog' function () {
-    return view('blog' [
-        'posts' -> 'Get post here?'
-        ]
-    );
+Route::get('blog', function () {
+    return view('blog', [
+        'posts' => 'Get post here?'
+    ]);
 });
 
-Route::get('shop' function () {
+Route::get('shop', function () {
     return view('shop');
 });
 
-Route::get('about' function () {
+Route::get('about', function () {
     return view('about');
 });
 
 //Posts
 
-Route::get('blog/post' function () {
-    return view(
+Route::get('blog/{post}', function ($slug) {
+    $path = __DIR__ . "/../resources/posts/{$slug}.html";
+
+    if (! file_exists($path)) {
+        abort(404); //idiot
+    }
+
+    $post = file_get_contents($path);
+
+    return $post;
+})->whereAlphaNumeric('post');
