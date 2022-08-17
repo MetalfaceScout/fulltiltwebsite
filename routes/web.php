@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +21,10 @@ Route::get('contact', function () {
     return view('contact');
 });
 
-Route::get('blog', function () {
+Route::get('blog', function () { //find all posts and display them
+    $posts = Post::all();
     return view('blog', [
-        'posts' => 'Get post here?'
+        'posts' => $posts
     ]);
 });
 
@@ -38,13 +39,10 @@ Route::get('about', function () {
 //Posts
 
 Route::get('blog/{post}', function ($slug) {
-    $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
-    if (! file_exists($path)) {
-        abort(404); //idiot
-    }
-
-    $post = file_get_contents($path);
+    //Find a post by it's slug and display it
+    $post = Post::find($slug);
 
     return $post;
+
 })->whereAlphaNumeric('post');
