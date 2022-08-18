@@ -25,14 +25,10 @@
       </header>
       <main>
         <section id="blog">
-        <h1>See the latest from FULL TILT!</h1>
-        <article>
-          <?php foreach ($posts as $post) : ?>
-            <article>
-              <h2><?= $post->title; ?></h2>
-              <p><?= $post->excerpt; ?></p>
-            </article>
-          <?php endforeach; ?>
+          <article>
+            <?= $post; ?>
+          </article>
+          <a href="/blog">Go Back</a>
         </section>
       </main>
       <footer>
