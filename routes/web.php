@@ -39,7 +39,7 @@ Route::get('contact', function () {
     return view('contact');
 });
 
-Route::get('blog', function () { //find all posts and display them, using yamlfrontmatter
+Route::get('blog', function () { //find all posts and display them
     $posts = Post::all();
     return view('blog', [
         'posts' => $posts

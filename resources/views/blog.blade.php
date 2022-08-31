@@ -26,13 +26,11 @@
       <main>
         <section id="blog">
         <h1>See the latest from FULL TILT!</h1>
-        <article>
-          <?php foreach ($posts as $post) : ?>
-            <article>
-              <h2><?= $post->title; ?></h2>
-              <p><?= $post->excerpt; ?></p>
-            </article>
-          <?php endforeach; ?>
+        @foreach $posts as $post
+          <article>
+            {{ echo $post->excerpt }}
+          </article>
+        @endforeach
         </section>
       </main>
       <footer>

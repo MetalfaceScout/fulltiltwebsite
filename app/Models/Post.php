@@ -22,32 +22,23 @@ class Post
     }
 
     public static function all() {
-
-        $files = File::files(resource_path("posts"));
-
-        return array_map(function ($file) {
-            $path = $file->getRelativePathname();
-            return YamlFrontMatter::parseFile(resource_path("posts/{$path}"));
-        }, $files); 
-
+        return cache()->rememberForever('posts.all', function () {
+            return collect(File::files(resource_path("posts"))) //Use a collection, no ; cause the line isn't over
+            ->map(fn($file) => YamlFrontMatter::parseFile($file)) // -> is basically a dot
+            ->map(fn($document) => new Post(
+                $document->title,
+                $document->excerpt,
+                $document->date,
+                $document->body
+                ))
+            ->sortByDesc('date'); //Map over a second time
+        });
     }
+        
+    
 
     public static function find($slug) {
-
-        $path = resource_path("posts/{$slug}.html");
-
-
-        if (! file_exists($path)) {
-                //throw new ModelNotFoundExeception();
-            abort('404');
-        }
-
-        $post = cache()->remember("posts.{$slug}", 5, function () use ($path) {
-            return file_get_contents($path);
-        });
-
-        return $post;
-
+        return static::all()->firstWhere('slug', $slug);
     }
     
 }
